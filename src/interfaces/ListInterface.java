@@ -1,8 +1,4 @@
-<<<<<<< HEAD:interfaces/ListInterface.java
-package interfaces;
-=======
 package src.interfaces;
->>>>>>> 1a57b43b0da26cd1ca4de89b3059391ee117ba27:src/interfaces/ListInterface.java
 
 public interface ListInterface<E> {
 
