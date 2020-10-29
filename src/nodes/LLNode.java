@@ -1,4 +1,4 @@
-package nodes;
+package src.nodes;
 
 
 public class LLNode<E> {

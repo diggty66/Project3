@@ -1,6 +1,6 @@
-package apps;
+package src.apps;
 
-import adts.*;
+import src.adts.*;
 
 public class PlayWithLists {
 

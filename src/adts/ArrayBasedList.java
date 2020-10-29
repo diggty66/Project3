@@ -1,6 +1,6 @@
-package adts;
+package src.adts;
 
-import interfaces.ListInterface;
+import src.interfaces.ListInterface;
 
 public class ArrayBasedList<E> implements ListInterface<E> {
 
