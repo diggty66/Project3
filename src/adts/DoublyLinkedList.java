@@ -1,5 +1,5 @@
 package adts;
-//3
+//4
 import nodes.DLLNode;
 import interfaces.ListInterface;
 
@@ -32,7 +32,7 @@ public class DoublyLinkedList<E> implements ListInterface<E> {
 	}
 
 	protected void find(E target) {
-		DLLNode current = front;
+		DLLNode<E> current = front;
 		found = false;
 		
 		while(curIteratorPos<numElements) {
