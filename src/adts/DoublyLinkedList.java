@@ -1,15 +1,18 @@
 package adts;
-//4
+
 import nodes.DLLNode;
 import interfaces.ListInterface;
 
 public class DoublyLinkedList<E> implements ListInterface<E> {
+
 		protected DLLNode<E> front;
 		protected DLLNode<E> rear;
+
 		protected int numElements;
 		protected int curIteratorPos;
 		//for find methods
 		protected boolean found;
+
 		protected DLLNode<E> location;
 	@Override
 	public void add(E element) {
@@ -27,29 +30,34 @@ public class DoublyLinkedList<E> implements ListInterface<E> {
 			/*rear.setPrevious(front);
 			rear.setNext(newNode);
 			rear=newNode;*/
+
 		}
 		numElements++;
 	}
 
 	protected void find(E target) {
+
 		DLLNode<E> current = front;
+
 		found = false;
 		
 		while(curIteratorPos<numElements) {
 			if(current.getInfo().equals(target)) {
+
 				location = current;
 				found=true;
 				
 				return;
 			}else {
 				current = current.getNext();
-				
+
 				curIteratorPos++;
 			}
 		}
 	}
 	@Override
 	public boolean remove(E element) {
+
 		
 		find(element);
 			if(found) {
@@ -69,6 +77,7 @@ public class DoublyLinkedList<E> implements ListInterface<E> {
 					location.getNext().setPrevious(location.getPrevious());
 				}
 			}
+
 		resetIterator();
 		numElements--;
 		return false;
@@ -120,3 +129,4 @@ public class DoublyLinkedList<E> implements ListInterface<E> {
 	}
 
 }
+
