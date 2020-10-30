@@ -1,5 +1,5 @@
 package adts;
-//1
+//2
 import nodes.DLLNode;
 import interfaces.ListInterface;
 
@@ -53,7 +53,10 @@ public class DoublyLinkedList<E> implements ListInterface<E> {
 		
 		find(element);
 			if(found) {
-				if(front.getInfo() == location.getInfo()) {
+				if(front.getInfo() == rear.getInfo()) {
+					front = rear = null;
+				}
+				else if(front.getInfo() == location.getInfo()) {
 					front = front.getNext();
 					front.setPrevious(null);
 				}
