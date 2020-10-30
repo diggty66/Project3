@@ -4,57 +4,80 @@ import nodes.DLLNode;
 import interfaces.ListInterface;
 
 public class DoublyLinkedList<E> implements ListInterface<E> {
-		DLLNode front;
-		DLLNode rear;
+
+		protected DLLNode<E> front;
+		protected DLLNode<E> rear;
+
 		protected int numElements;
 		protected int curIteratorPos;
 		//for find methods
 		protected boolean found;
-		protected int location;
+
+		protected DLLNode<E> location;
 	@Override
 	public void add(E element) {
-		if(front==null) {
-			front = new DLLNode(element);
+		DLLNode<E> newNode = new DLLNode(element);
+		if(front==null && rear == null) {
+			front = newNode;
 			rear=front;
 			
 		}else {
-			DLLNode newNode = new DLLNode(element);
+			
+			newNode.setPrevious(rear);
 			rear.setNext(newNode);
-			rear.setPrevious(front);
-			rear=newNode;
+			rear = newNode;
+			
+			/*rear.setPrevious(front);
+			rear.setNext(newNode);
+			rear=newNode;*/
+
 		}
 		numElements++;
 	}
 
 	protected void find(E target) {
-		DLLNode current = front;
+
+		DLLNode<E> current = front;
+
 		found = false;
 		
 		while(curIteratorPos<numElements) {
 			if(current.getInfo().equals(target)) {
+
+				location = current;
 				found=true;
+				
 				return;
 			}else {
+				current = current.getNext();
+
 				curIteratorPos++;
 			}
 		}
 	}
 	@Override
 	public boolean remove(E element) {
-		DLLNode current = front;
+
+		
 		find(element);
-		if(found) {
-			while(curIteratorPos<numElements) {
-				if(current.getInfo().equals(element)) {
-					DLLNode a = current.getPrevious();
-					DLLNode b = current.getNext();
-					a.setNext(b);
-					b.setPrevious(a);
-					return true;
+			if(found) {
+				if(front == rear) {
+					front = rear = null;
+				}
+				else if(front == location) {
+					front = front.getNext();
+					front.setPrevious(null);
+				}
+				else if(rear == location){
+						rear = rear.getPrevious();
+						rear.setNext(null);
+				}
+				else {
+					location.getPrevious().setNext(location.getNext());
+					location.getNext().setPrevious(location.getPrevious());
 				}
 			}
-			
-		}
+
 		resetIterator();
 		numElements--;
 		return false;
@@ -106,3 +129,4 @@ public class DoublyLinkedList<E> implements ListInterface<E> {
 	}
 
 }
+
