@@ -1,7 +1,8 @@
-package adts;
+package src.adts;
 
-import nodes.DLLNode;
-import interfaces.ListInterface;
+import java.util.Arrays;
+import src.interfaces.ListInterface;
+import src.nodes.DLLNode;
 
 public class DoublyLinkedList<E> implements ListInterface<E> {
 
@@ -12,11 +13,13 @@ public class DoublyLinkedList<E> implements ListInterface<E> {
 		protected int curIteratorPos;
 		//for find methods
 		protected boolean found;
+		protected boolean called = false;
 
 		protected DLLNode<E> location;
 	@Override
 	public void add(E element) {
 		DLLNode<E> newNode = new DLLNode(element);
+		called = true;
 		if(front==null && rear == null) {
 			front = newNode;
 			rear=front;
@@ -33,6 +36,57 @@ public class DoublyLinkedList<E> implements ListInterface<E> {
 
 		}
 		numElements++;
+	}
+	protected void find2(E target){
+		found = false;
+		E[] list;
+		DLLNode<E> current = front;
+
+		if(called){
+			called = false;
+			list = (E[]) new Object[numElements];
+			for(int i = 0; i < numElements; ++i){
+				list[i] = current.getInfo();
+				current.getNext();
+			}
+			Arrays.sort(list);
+		}
+		
+		
+		int index = 0, length = numElements - 1;
+		while (index <= length){
+			int mid = index + (length - index)/2;
+
+			if(list[mid] == target){
+				location.setInfo(list[mid]);
+				found = true;
+				return;
+			}
+			
+			if (list[mid] > target){
+				length = mid - 1;
+			}
+			else {
+				index = mid + 1;
+			}
+		}
+	}
+
+	public String compareFind(E target){
+		
+		long startTime = System.nanoTime();
+		find(target);
+		long elapsed = System.nanoTime() - startTime;
+
+		String answer = "The time in nanoseconds for linear search: " + elapsed; 
+
+		startTime = System.nanoTime();
+		find2(target);
+		elapsed = System.nanoTime() - startTime;
+
+		answer += "\nThe time in nanoseconds for binary search: " + elapsed;
+
+		return answer;
 	}
 
 	protected void find(E target) {
@@ -55,9 +109,10 @@ public class DoublyLinkedList<E> implements ListInterface<E> {
 			}
 		}
 	}
+
 	@Override
 	public boolean remove(E element) {
-
+		called = true;
 		
 		find(element);
 			if(found) {
@@ -80,11 +135,10 @@ public class DoublyLinkedList<E> implements ListInterface<E> {
 
 		resetIterator();
 		numElements--;
-		return false;
-		
-		
-		
+		return false;	
 	}
+
+
 
 	@Override
 	public int size() {
@@ -98,14 +152,19 @@ public class DoublyLinkedList<E> implements ListInterface<E> {
 
 	@Override
 	public boolean contains(E element) {
-		// TODO Auto-generated method stub
-		return false;
+		find(element);
+		return found;
 	}
 
 	@Override
 	public E get(E element) {
-		// TODO Auto-generated method stub
-		return null;
+		find(element);
+		if(found){
+			return location;
+		}
+		else{
+			return null;
+		}
 	}
 
 	@Override
@@ -115,7 +174,13 @@ public class DoublyLinkedList<E> implements ListInterface<E> {
 
 	@Override
 	public E getNextItem() {
-		return null;
+		DLLNode<E> next = location.getNext();
+		++curIteratorPos;
+		if (curIteratorPos == numElements) {
+	    	curIteratorPos = 0;
+	    }
+	    return next;
+		
 	}
 	
 	public String toString() {
