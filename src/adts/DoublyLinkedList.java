@@ -13,7 +13,7 @@ public class DoublyLinkedList<E> implements ListInterface<E> {
 		protected int curIteratorPos;
 		//for find methods
 		protected boolean found;
-		protected boolean called = false;
+		protected boolean called;
 
 		protected DLLNode<E> location;
 	@Override
@@ -63,7 +63,7 @@ public class DoublyLinkedList<E> implements ListInterface<E> {
 				return;
 			}
 			
-			if (list[mid] > target){
+			if (list[mid].toString().compareToIgnoreCase(target.toString()) > 0){
 				length = mid - 1;
 			}
 			else {
@@ -160,7 +160,7 @@ public class DoublyLinkedList<E> implements ListInterface<E> {
 	public E get(E element) {
 		find(element);
 		if(found){
-			return location;
+			return location.getInfo();
 		}
 		else{
 			return null;
@@ -179,7 +179,7 @@ public class DoublyLinkedList<E> implements ListInterface<E> {
 		if (curIteratorPos == numElements) {
 	    	curIteratorPos = 0;
 	    }
-	    return next;
+	    return next.getInfo();
 		
 	}
 	
