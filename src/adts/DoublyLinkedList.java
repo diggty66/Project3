@@ -39,7 +39,7 @@ public class DoublyLinkedList<E> implements ListInterface<E> {
 	}
 	protected void find2(E target){
 		found = false;
-		E[] list;
+		E[] list = null;
 		DLLNode<E> current = front;
 
 		if(called){
