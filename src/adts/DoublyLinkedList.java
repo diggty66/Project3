@@ -1,8 +1,8 @@
-package src.adts;
+package adts;
 
 import java.util.Arrays;
-import src.interfaces.ListInterface;
-import src.nodes.DLLNode;
+import interfaces.ListInterface;
+import nodes.DLLNode;
 
 public class DoublyLinkedList<E> implements ListInterface<E> {
 
@@ -63,7 +63,7 @@ public class DoublyLinkedList<E> implements ListInterface<E> {
 				return;
 			}
 			
-			if (list[mid].toString().compareToIgnoreCase(target.toString()) > 0){
+			if (list[mid].toString().compareTo(target.toString()) > 0){
 				length = mid - 1;
 			}
 			else {
@@ -171,12 +171,26 @@ public class DoublyLinkedList<E> implements ListInterface<E> {
 	public void resetIterator() {
 		curIteratorPos=0;
 	}
+	
+	public void resetBackIterator() {
+		curIteratorPos=numElements-1;
+	}
+	
+	public E getPrevItem() {
+		DLLNode<E> back = location.getPrevious();
+		curIteratorPos--;
+		if(curIteratorPos==0) {
+			resetBackIterator();
+		}
+		return back.getInfo();
+		
+	}
 
 	@Override
 	public E getNextItem() {
 		DLLNode<E> next = location.getNext();
 		++curIteratorPos;
-		if (curIteratorPos == numElements) {
+		if (curIteratorPos == numElements-1) {
 	    	curIteratorPos = 0;
 	    }
 	    return next.getInfo();
@@ -194,4 +208,3 @@ public class DoublyLinkedList<E> implements ListInterface<E> {
 	}
 
 }
-
