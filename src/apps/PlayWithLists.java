@@ -7,7 +7,7 @@ public class PlayWithLists {
 	public static void main(String[] args) {
 		
 		/**/
-		ArrayBasedList<String> list1 = new ArrayBasedList<String>();
+		DoublyLinkedList<String> list1 = new DoublyLinkedList<String>();
 	      
 	    list1.add("Dykstra");
 		list1.add("Wirth");
@@ -18,7 +18,7 @@ public class PlayWithLists {
 
 	    System.out.println("\nComputer Scientists: "+list1);
 	      
-		ArrayBasedList<Integer> list2 = new ArrayBasedList<Integer>();
+		DoublyLinkedList<Integer> list2 = new DoublyLinkedList<Integer>();
 		
 		for (int i = 0; i < 10; i++) {
 			list2.add(i);
