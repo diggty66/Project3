@@ -177,7 +177,6 @@ public class DoublyLinkedList<E> implements ListInterface<E> {
 	}
 	
 	public E getPrevItem() {
-		resetBackIterator();
 		DLLNode<E> back = location.getPrevious();
 		curIteratorPos--;
 		if(curIteratorPos==0) {
