@@ -256,7 +256,23 @@ public class PlayWithLists {
 		System.out.println("The size of an empty list: " + emptyList.size());
 	
 		// Test 2 get size from a list with items
-		System.out.println("The size of a list with items: "+ addTest.size()+ addTest);
+		System.out.println("The size of a list with items: "+ addTest.size());
+
+		// Testing linear vs binary search using method name compareFind 
+
+		DoublyLinkedList<Integer> test = new DoublyLinkedList<Integer>();
+
+		for (int i = 0; i < 9999999; ++i){
+			test.add(i);
+		}
+
+
+		System.out.println(test.compareFind(45000));
+
+		// testing same find without add or remove inbetween
+
+		System.out.println(test.compareFind(45000));
+
 	}
       
 }
